@@ -1,0 +1,76 @@
+1) Create a copy of employees table from the hr schema and call the table my_hr_employees.
+
+CREATE TABLE my_hr_employees AS
+SELECT *
+FROM hr.employees;
+
+
+2) Create a PL/SQL block that inserts an employee to the table my_hr_employees with the following attributes:
+employee_id with value of 3000;
+first_name with value of 'Jane';
+last_name with value of 'Smith';
+email with value of 'JS@udemy.com'
+hire_date with value of SYSDATE
+job_id with value of 'Marketing'
+v_salary with value of 45,000;
+
+DECLARE
+  v_employee_id my_hr_employees.employee_id%TYPE := 3000;
+  v_first_name my_hr_employees.first_name%TYPE := 'Jane';
+  v_last_name my_hr_employees.last_name%TYPE := 'Smith';
+  v_email my_hr_employees.email%TYPE := 'JS@udemy.com';
+  v_hire_date my_hr_employees.hire_date%TYPE := SYSDATE;
+  v_job_id my_hr_employees.job_id%TYPE := 'Marketing';
+  v_salary my_hr_employees.salary%TYPE := 45000;
+
+BEGIN
+  INSERT INTO my_hr_employees (employee_id, first_name, last_name,email,hire_date,job_id,salary)
+  VALUES (v_employee_id, v_first_name, v_last_name,v_email,v_hire_date,v_job_id,v_salary);
+
+  DBMS_OUTPUT.PUT_LINE('Employee inserted successfully.');
+
+END;
+
+3) Create a PL/SQL block that updates salary for an employee with employee_id of 3000 to salary of 50,000. Use table my_hr_employees we created at step 1.
+
+DECLARE
+  v_employee_id my_hr_employees.employee_id%TYPE := 3000;
+  v_new_salary my_hr_employees.salary%TYPE := 50000;
+BEGIN
+  UPDATE my_hr_employees
+  SET salary = v_new_salary
+  WHERE employee_id = v_employee_id;
+
+  DBMS_OUTPUT.PUT_LINE('Employee salary updated successfully.');
+
+END;
+
+4) Create a PL/SQL block that selects an employee with employee_id of 3000 and prints first_name , last_name and salary to the screen. Use table my_hr_employees we created at step 1.
+
+DECLARE
+  v_employee_id my_hr_employees.employee_id%TYPE := 3000;
+  v_first_name my_hr_employees.first_name%TYPE;
+  v_last_name my_hr_employees.last_name%TYPE;
+  v_salary my_hr_employees.salary%TYPE;
+BEGIN
+  SELECT first_name, last_name, salary
+  INTO v_first_name, v_last_name, v_salary
+  FROM my_hr_employees
+  WHERE employee_id = v_employee_id;
+
+  DBMS_OUTPUT.PUT_LINE('Employee Name: ' || v_first_name || ' ' || v_last_name);
+  DBMS_OUTPUT.PUT_LINE('Employee Salary: ' || v_salary);
+
+END;
+
+5) Create a PL/SQL block that delete salary for an employee with employee of 3000.Use table my_hr_employees we created at step 1.
+
+DECLARE
+  v_employee_id my_hr_employees.employee_id%TYPE := 3000;
+BEGIN
+  DELETE FROM my_hr_employees
+  WHERE employee_id = v_employee_id;
+
+  DBMS_OUTPUT.PUT_LINE('Employee deleted successfully.');
+
+END;
