@@ -1,0 +1,10 @@
+# Write a PL/SQL block that prints numbers from 10 to 15 using a WHILE LOOP.
+
+DECLARE
+    v_number NUMBER := 10;
+BEGIN
+    WHILE v_number <= 15 LOOP
+        DBMS_OUTPUT.PUT_LINE('Printing: ' || v_number);
+        v_number := v_number + 1;
+    END LOOP;
+END;
