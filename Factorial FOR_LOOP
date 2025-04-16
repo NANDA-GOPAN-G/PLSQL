@@ -1,0 +1,11 @@
+# Write a PL/SQL block that calculates the factorial of a given number using a FOR LOOP.
+DECLARE
+    v_number NUMBER := 5;
+    v_factorial NUMBER := 1;
+BEGIN
+    FOR i IN 1 .. v_number LOOP
+        v_factorial := v_factorial * i;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Factorial: ' || v_factorial);
+END;
