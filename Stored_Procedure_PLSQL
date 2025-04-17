@@ -1,0 +1,80 @@
+Create a stored procedure called add_department that inserts a new department into the departments table.
+The procedure should take the following 2 parameters: p_department_id and p_department_name.
+If you are using livesql please make a copy of the department table first.
+
+/*
+
+CREATE TABLE my_hr_departments AS
+
+SELECT * FROM hr.departments ;
+
+*/
+
+CREATE OR REPLACE PROCEDURE add_department (
+
+
+
+    p_department_id IN my_hr_departments.department_id%TYPE,
+
+
+
+    p_department_name IN my_hr_departments.department_name%TYPE
+
+
+
+) IS
+
+
+
+BEGIN
+
+
+
+    INSERT INTO  my_hr_departments (department_id, department_name)
+
+
+
+    VALUES (p_department_id, p_department_name);
+
+
+
+    COMMIT;
+
+
+
+EXCEPTION
+
+
+
+    WHEN DUP_VAL_ON_INDEX THEN
+
+
+
+        DBMS_OUTPUT.PUT_LINE('Deparment ID ' || p_department_id || ' already exists.');
+
+ROLLBACK;
+
+
+
+    WHEN OTHERS THEN
+
+
+
+       DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+
+   ROLLBACK;
+
+
+
+END;
+
+
+
+/*
+
+Calling your stored procedure
+
+CALL add_department(1000,'TEST1');
+
+*/
+
