@@ -1,0 +1,60 @@
+Create a stored procedure called delete_department that deletes a department from the departments table based on the provided p_department_id.
+If you are using livesql please make a copy of the department table first
+
+/*
+
+If using LIVESQL
+
+CREATE TABLE my_hr_departments AS
+
+SELECT * FROM hr.departments ;
+
+
+
+Making  department_id primary key
+
+ALTER TABLE my_hr_departments
+
+ADD CONSTRAINT my_hr_department_pk PRIMARY KEY (department_id)
+
+
+
+*/
+
+
+
+CREATE OR REPLACE PROCEDURE delete_department (
+
+    p_department_id IN my_hr_departments.department_id%TYPE
+
+) IS
+
+BEGIN
+
+    DELETE FROM my_hr_departments
+
+    WHERE department_id = p_department_id;
+
+    COMMIT;
+
+
+
+EXCEPTION
+
+WHEN OTHERS THEN
+
+DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+
+ROLLBACK;
+
+END;
+
+
+
+/*
+
+You can change the  number as you wish
+
+CALL  delete_department(1);
+
+*/
