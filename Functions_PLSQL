@@ -1,0 +1,30 @@
+# Create a function that accepts DEPARTMENT NAME as a string parameter and returns the corresponding DEPARTMENT_ID from the departments table. If the DEPARTMENT_ID is not found, the function should return -1.
+
+/** FUNCTION **/
+CREATE OR REPLACE FUNCTION get_department_id(p_department_name VARCHAR2)
+RETURN NUMBER
+IS
+v_department_id NUMBER;
+BEGIN
+-- Select the department ID based on the department name
+BEGIN
+SELECT department_id
+INTO v_department_id
+FROM hr.departments
+WHERE department_name = p_department_name;
+RETURN v_department_id;
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+RETURN -1;
+END;
+END;
+
+/** TESTING FUNCTION **/
+DECLARE
+v_department_name VARCHAR2(50) := 'Administration'; -- Change the department name for testing
+v_department_id NUMBER;
+BEGIN
+v_department_id := get_department_id(v_department_name);
+DBMS_OUTPUT.PUT_LINE('Department Name: ' || v_department_name);
+DBMS_OUTPUT.PUT_LINE('Department ID: ' || v_department_id);
+END;
