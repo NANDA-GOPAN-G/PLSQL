@@ -1,0 +1,22 @@
+# Write a PL/SQL block that uses a cursor to fetch and display the first_name, last_name, and salary of all employees from the employees table where DEPARTMENT_ID is 30.
+
+DECLARE
+  CURSOR emp_cursor IS
+  SELECT first_name, last_name, salary
+  FROM hr.employees where DEPARTMENT_ID=30 ;
+
+  v_emps emp_cursor%rowtype;
+
+BEGIN
+  OPEN emp_cursor;
+
+  LOOP
+    FETCH emp_cursor INTO v_emps;
+    EXIT WHEN emp_cursor%NOTFOUND;
+
+    DBMS_OUTPUT.PUT_LINE('First Name: ' || v_emps.first_name || ', Last Name: ' || v_emps.last_name || ', Salary: ' || v_emps.salary);
+  END LOOP;
+
+  CLOSE emp_cursor;
+
+END;
